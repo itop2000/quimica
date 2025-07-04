@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Neutralización de KOH con Vinagre</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #7A5195;
+            padding: 0 1rem;
+        }
+        .formula-box {
+            background-color: #eef2ff;
+            border-left: 5px solid #7A5195;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #003F5C;
+            border-radius: 0.25rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="text-[#003F5C]">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-black text-[#003F5C] mb-2">Guía Visual de Neutralización</h1>
+            <p class="text-xl text-[#7A5195]">Hidróxido de Potasio (KOH) y Vinagre</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <section class="md:col-span-2 lg:col-span-3 card">
+                <h2 class="text-2xl font-bold mb-4 text-[#7A5195]">1. La Reacción Química Clave</h2>
+                <p class="mb-6">La neutralización es una reacción fundamental donde un ácido y una base reaccionan para formar una sal y agua. En nuestro caso, el hidróxido de potasio (una base fuerte) se neutraliza con el ácido acético del vinagre (un ácido débil).</p>
+                <div class="flex flex-col md:flex-row items-center justify-center p-4 rounded-lg bg-gray-50">
+                    <div class="text-center p-4">
+                        <p class="text-2xl font-bold">KOH</p>
+                        <p class="text-sm">Hidróxido de Potasio</p>
+                    </div>
+                    <div class="flow-arrow">+</div>
+                    <div class="text-center p-4">
+                        <p class="text-2xl font-bold">CH₃COOH</p>
+                        <p class="text-sm">Ácido Acético (Vinagre)</p>
+                    </div>
+                    <div class="flow-arrow hidden md:flex">→</div>
+                    <div class="flow-arrow md:hidden text-3xl my-2">↓</div>
+                    <div class="text-center p-4 bg-[#EF5675] text-white rounded-lg">
+                        <p class="text-lg font-bold">CH₃COOK + H₂O</p>
+                        <p class="text-xs">Acetato de Potasio + Agua</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2 class="text-2xl font-bold mb-4 text-[#7A5195]">2. La Composición del Vinagre</h2>
+                <p class="mb-4 text-sm">Un punto crucial es que el vinagre comercial no es ácido acético puro. Generalmente, solo contiene un 5% de ácido, siendo el resto principalmente agua. Esto es vital para nuestros cálculos.</p>
+                <div class="chart-container h-64 md:h-auto">
+                    <canvas id="vinegarCompositionChart"></canvas>
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2 class="text-2xl font-bold mb-4 text-[#7A5195]">3. La Proporción Exacta</h2>
+                <p class="mb-4 text-sm">La química es precisa. La reacción requiere una proporción específica por masa molar: 60g de ácido acético puro para neutralizar 56.1g de KOH. Esta proporción es la base de nuestra fórmula.</p>
+                <div class="chart-container h-64 md:h-auto">
+                    <canvas id="stoichiometryChart"></canvas>
+                </div>
+            </section>
+
+            <section class="md:col-span-2 lg:col-span-3 card">
+                <h2 class="text-2xl font-bold mb-4 text-[#7A5195]">4. La Fórmula de Cálculo</h2>
+                <p class="mb-6">Considerando la proporción estequiométrica y la concentración del vinagre, podemos usar una fórmula directa para calcular la cantidad de vinagre (en mililitros) necesaria para neutralizar cualquier cantidad de KOH (en gramos).</p>
+                <div class="formula-box text-center">
+                    <p>mL Vinagre = (Gramos KOH × 60) / (56.1 × 0.05)</p>
+                </div>
+            </section>
+            
+            <section class="lg:col-span-2 card">
+                <h2 class="text-2xl font-bold mb-4 text-[#7A5195]">5. Relación Dosis-Respuesta</h2>
+                <p class="mb-4 text-sm">La relación entre la cantidad de KOH y el vinagre necesario es lineal. A medida que aumenta la cantidad de base, la cantidad de ácido requerido para la neutralización aumenta de manera predecible y constante.</p>
+                <div class="chart-container">
+                    <canvas id="kohVinegarRelationChart"></canvas>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 class="text-2xl font-bold mb-4 text-[#7A5195]">6. ¡Calculadora Interactiva!</h2>
+                <p class="mb-4 text-sm">Usa esta herramienta para aplicar la fórmula en tiempo real. Ingresa los gramos de KOH y descubre al instante cuánto vinagre necesitas.</p>
+                <div class="space-y-4">
+                    <div>
+                        <label for="kohInput" class="font-bold block mb-1">Gramos de KOH:</label>
+                        <input type="number" id="kohInput" value="2" class="w-full p-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FFA600] focus:border-transparent transition">
+                    </div>
+                    <div class="text-center p-4 bg-[#FFA600] rounded-lg">
+                        <p class="text-sm text-white">Vinagre necesario:</p>
+                        <p id="resultOutput" class="text-3xl font-black text-white">42.78 mL</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        
+        function processLabel(label, maxLength = 16) {
+            if (label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#003F5C',
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    ticks: { color: '#7A5195' },
+                    grid: { color: '#e0e0e040' }
+                },
+                x: {
+                    ticks: { color: '#7A5195' },
+                    grid: { color: '#e0e0e040' }
+                }
+            }
+        };
+
+        
+        const vinegarCtx = document.getElementById('vinegarCompositionChart').getContext('2d');
+        new Chart(vinegarCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Ácido Acético', 'Agua y otros componentes'],
+                datasets: [{
+                    label: 'Composición del Vinagre',
+                    data: [5, 95],
+                    backgroundColor: ['#EF5675', '#7A5195'],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#003F5C', font: {size: 14}}},
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
+        const stoichiometryCtx = document.getElementById('stoichiometryChart').getContext('2d');
+        new Chart(stoichiometryCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Hidróxido de Potasio (KOH)', 'Ácido Acético Puro'],
+                datasets: [{
+                    label: 'Gramos necesarios',
+                    data: [56.1, 60],
+                    backgroundColor: ['#BC5090', '#FFA600'],
+                    borderRadius: 4
+                }]
+            },
+            options: { ...commonChartOptions, indexAxis: 'y' }
+        });
+
+        const relationCtx = document.getElementById('kohVinegarRelationChart').getContext('2d');
+        const kohValues = [0, 1, 2, 3, 4, 5, 10];
+        const vinegarValues = kohValues.map(koh => (koh * 60) / (56.1 * 0.05));
+        new Chart(relationCtx, {
+            type: 'line',
+            data: {
+                labels: kohValues.map(v => `${v}g`),
+                datasets: [{
+                    label: 'mL de Vinagre requeridos',
+                    data: vinegarValues,
+                    borderColor: '#EF5675',
+                    backgroundColor: '#EF567533',
+                    fill: true,
+                    tension: 0.1,
+                    pointBackgroundColor: '#FF764A',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    y: { ...commonChartOptions.scales.y, title: { display: true, text: 'mL de Vinagre', color: '#003F5C' }},
+                    x: { ...commonChartOptions.scales.x, title: { display: true, text: 'Gramos de KOH', color: '#003F5C' }}
+                }
+            }
+        });
+
+        const kohInput = document.getElementById('kohInput');
+        const resultOutput = document.getElementById('resultOutput');
+        kohInput.addEventListener('input', () => {
+            const kohGrams = parseFloat(kohInput.value) || 0;
+            if (kohGrams >= 0) {
+                const vinegarMl = (kohGrams * 60) / (56.1 * 0.05);
+                resultOutput.textContent = `${vinegarMl.toFixed(2)} mL`;
+            } else {
+                resultOutput.textContent = 'Inválido';
+            }
+        });
+
+    </script>
+</body>
+</html>
